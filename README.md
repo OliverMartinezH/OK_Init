@@ -28,6 +28,30 @@ OK_Init generates **5 governance files** that act as a knowledge base for your p
 
 ---
 
+## Why OK_Init?
+
+OK_Init is a tool that automatically creates an "intelligence center" for any project. It generates 5 living documents that connect to each other (like Wikipedia) so that the entire team and AI agents always know what is being built, what is missing, and what decisions were made in the past. It's like having a ship's log that writes itself.
+
+### The 5 Commands
+
+| Command | What it does |
+|---------|--------------|
+| `ok init` | **The starter:** Asks basic questions and sets up the entire structure in seconds |
+| `ok sigamos` | **The reminder:** "Where did we leave off?" — reads files and tells you the next step |
+| `ok sync` | **The auditor:** Compares real work against the plan and flags incomplete items |
+| `ok status` | **The dashboard:** Shows a visual progress bar of where the project stands |
+| `ok commit` | **The safe keeper:** Asks quick questions and archives both code and governance notes |
+
+### 3 Business Benefits
+
+| Benefit | Description |
+|---------|-------------|
+| **No more forgetting** | Leave a project for a month, come back — the tool tells you exactly where you stopped |
+| **AI-ready** | If you use AI to work, these files give it perfect context so it doesn't make mistakes |
+| **Total independence** | Mobile app, web app, internal system — works exactly the same way |
+
+---
+
 ## Obsidian Integration
 
 ### How It Works
@@ -450,6 +474,30 @@ OK_Init genera **5 archivos de gobernanza** que actúan como base de conocimient
 | `stack.md` | Stack técnico + modelo de datos + estándar UI | `[[agent]]` `[[progress]]` |
 | `progress.md` | Estado actual + próximo paso | `[[history]]` `[[stack]]` |
 | `history.md` | Memoria acumulativa de fases completadas | `[[progress]]` |
+
+---
+
+## ¿Por qué OK_Init?
+
+OK_Init es una herramienta que crea automáticamente una "central de inteligencia" para cualquier proyecto. Genera 5 documentos vivos que se conectan entre sí (como Wikipedia) para que todo el equipo y las Inteligencias Artificiales sepan siempre qué se está construyendo, qué falta por hacer y qué decisiones se tomaron en el pasado. Es como tener un diario de a bordo que se escribe casi solo.
+
+### Los 5 Comandos
+
+| Comando | Qué hace |
+|---------|----------|
+| `ok init` | **El arranque:** Hace unas preguntas básicas y monta toda la estructura en un segundo |
+| `ok sigamos` | **El recordatorio:** "¿En qué nos quedamos?" — Lee los archivos y te recuerda el siguiente paso |
+| `ok sync` | **La auditoría:** Revisa el trabajo real y lo compara con el plan para avisar si algo quedó a medias |
+| `ok status` | **El tablero:** Te muestra una barra de progreso visual de cómo va el proyecto hoy |
+| `ok commit` | **El archivador seguro:** Te hace preguntas rápidas y archiva tanto los avances como las notas de control |
+
+### Los 3 Grandes Beneficios para el Negocio
+
+| Beneficio | Descripción |
+|-----------|-------------|
+| **Adiós al olvido** | Si dejas el proyecto un mes y vuelves, la herramienta te dice exactamente dónde te quedaste |
+| **Luz para la IA** | Si usas Inteligencia Artificial para trabajar, estos archivos le dan el contexto perfecto para que no cometa errores |
+| **Independencia total** | No importa si el proyecto es una aplicación móvil, una web o un sistema interno; funciona exactamente igual |
 
 ---
 
