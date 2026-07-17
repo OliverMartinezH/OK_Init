@@ -115,13 +115,15 @@ La skill incluye un protocolo de trabajo KISS:
 
 ```
 tu-proyecto/
-├── Proyecto NexusPlatform.md
+├── Proyecto [TU_PROYECTO].md
 ├── agent.md
 ├── stack.md
 ├── progress.md
 ├── history.md
 └── opencode.json (si no existía)
 ```
+
+> El nombre del primer archivo se personaliza con el nombre de tu proyecto.
 
 ## Requisitos
 
