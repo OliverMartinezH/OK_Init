@@ -5,6 +5,13 @@
 [![Obsidian](https://img.shields.io/badge/Obsidian-ready-7C3AED?style=flat-square&logo=obsidian)](https://obsidian.md)
 [![opencode](https://img.shields.io/badge/opencode-000000?style=flat-square)](https://opencode.ai)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
+[![OpenCode](https://img.shields.io/badge/opencode-000000?style=flat-square)](https://opencode.ai)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-D97757?style=flat-square&logo=claudecode&logoColor=white)](https://claude.com)
+[![Antigravity](https://img.shields.io/badge/Antigravity-4285F4?style=flat-square&logo=google&logoColor=white)](https://antigravity.google)
+[![Cursor](https://img.shields.io/badge/Cursor-000000?style=flat-square&logo=cursor&logoColor=white)](https://cursor.com)
+[![Windsurf](https://img.shields.io/badge/Windsurf-00A6FF?style=flat-square&logo=windsurf&logoColor=white)](https://windsurf.com)
+[![Cline](https://img.shields.io/badge/Cline-E8593C?style=flat-square&logo=cline&logoColor=white)](https://cline.bot)
+[![Aider](https://img.shields.io/badge/Aider-6B4FBB?style=flat-square)](https://aider.chat)
 
 ---
 
@@ -465,6 +472,61 @@ your-project/
 ## License
 
 MIT
+
+---
+
+## Agentes Compatibles
+
+OK_Init es compatible de forma nativa con los principales agentes CLI del ecosistema. Al instalar el skill, el agente solo consumirá tokens cuando invoques los comandos, manteniendo tu contexto limpio.
+
+| Plataforma | Tipo | Instalación |
+|------------|------|-------------|
+| **OpenCode** | Skill (SKILL.md) | `cp ok-init.md ~/.config/opencode/skills/` |
+| **Claude Code** | Skill (SKILL.md) | `mkdir -p .claude/skills/ok-init && cp SKILL.md .claude/skills/ok-init/` |
+| **Antigravity** | Skill (SKILL.md) | `mkdir -p .agent/skills/ok-init && cp SKILL.md .agent/skills/ok-init/` |
+| **Cursor** | Rules (.cursorrules) | `cp .cursorrules .cursorrules` |
+| **Windsurf** | Rules (.windsurfrules) | `cp .windsurfrules .windsurfrules` |
+| **Cline** | Rules (.clinerules/) | `mkdir -p .clinerules && cp .clinerules/governance.md .clinerules/` |
+| **Aider** | Conventions (CONVENTIONS.md) | `cp CONVENTIONS.md .` |
+
+### Instalación por Plataforma
+
+#### 1. OpenCode
+```bash
+cp ok-init.md ~/.config/opencode/skills/
+```
+
+#### 2. Claude Code
+```bash
+mkdir -p .claude/skills/ok-init
+cp SKILL.md .claude/skills/ok-init/
+```
+
+#### 3. Google Antigravity
+```bash
+mkdir -p .agent/skills/ok-init
+cp SKILL.md .agent/skills/ok-init/
+```
+
+#### 4. Cursor / Windsurf
+```bash
+# Cursor
+cp .cursorrules .cursorrules
+
+# Windsurf
+cp .windsurfrules .windsurfrules
+```
+
+#### 5. Cline
+```bash
+mkdir -p .clinerules
+cp .clinerules/governance.md .clinerules/
+```
+
+#### 6. Aider
+```bash
+cp CONVENTIONS.md .
+```
 
 ---
 
