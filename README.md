@@ -126,6 +126,7 @@ Type any of these triggers in opencode:
 | `ok sigamos` | Same as `ok init` |
 | `ok sync` | Audit MD vs actual code |
 | `ok status` | Show project status dashboard |
+| `ok commit` | Commit governance + code (with questions) |
 
 ### Smart Detection
 
@@ -236,6 +237,32 @@ Fase actual: 2 - Business Logic
 Última sesión: 16/07/2026 - Phase 1 completed
 Próximo paso: 2.1 Create domain entities
 ```
+
+### `ok commit`
+
+Commit governance files and code with interactive questions.
+
+```
+📝 Governance (2 archivos):
+- progress.md (modificado)
+- agent.md (modificado)
+
+💻 Código (3 archivos):
+- src/Services/PaymentService.cs (nuevo)
+- src/Controllers/WebhookController.cs (modificado)
+- tests/PaymentTests.cs (nuevo)
+
+¿Qué quieres commitear?
+1. Governance
+2. Código
+3. Ambos
+4. No
+```
+
+**Auto-suggested messages:**
+- Governance only → `docs: update governance files`
+- Code only → `feat: [based on files]`
+- Both → `feat: [code summary] + docs: governance update`
 
 ---
 
@@ -385,6 +412,7 @@ OK_Init genera **5 archivos de gobernanza** que actúan como base de conocimient
 | `ok sigamos` | Igual que `ok init` |
 | `ok sync` | Auditar MD vs código real |
 | `ok status` | Mostrar dashboard del estado del arte |
+| `ok commit` | Commitear governance + código (con preguntas) |
 
 ### `ok sync` (Auditoría)
 
@@ -397,6 +425,14 @@ Muestra un resumen visual del estado del proyecto:
 - Fase actual
 - Última sesión
 - Próximo paso
+
+### `ok commit` (Commit interactivo)
+
+Commitea archivos de governance y código con preguntas interactivas:
+- Clasifica archivos (governance vs código)
+- Pregunta qué commitear
+- Sugiere mensaje automático o permite custom
+- Ejecuta git add + commit
 
 ---
 

@@ -1,7 +1,7 @@
 # OK_Init — Project Governance Skill
 
 **Name:** ok-init
-**Triggers:** `ok init`, `ok sigamos`, `ok sync`, `ok status`
+**Triggers:** `ok init`, `ok sigamos`, `ok sync`, `ok status`, `ok commit`
 **Description:** Generates a 5-file governance system for any project with Obsidian wiki-links and a KISS workflow protocol.
 
 ---
@@ -525,6 +525,95 @@ Próximo paso: 2.1 Create domain entities
 | Current phase | `progress.md` (current phase section) |
 | Last session | `history.md` (most recent entry) |
 | Next step | `progress.md` (first unchecked task) |
+
+---
+
+## Trigger: "ok commit"
+
+If the user types "ok commit":
+
+1. Verify governance files exist
+2. If they do NOT exist → inform and suggest `ok init`
+3. If they DO exist → proceed with commit flow:
+
+### Commit Flow
+
+1. Run `git status` and capture output
+2. Classify modified files:
+   - **Governance:** `progress.md`, `agent.md`, `stack.md`, `history.md`, `Proyecto *.md`
+   - **Code:** All other files (src/, tests/, etc.)
+3. Show summary:
+
+```
+📝 Governance (3 archivos):
+- progress.md (modificado)
+- agent.md (modificado)
+- history.md (modificado)
+
+💻 Código (5 archivos):
+- src/Services/PaymentService.cs (nuevo)
+- src/Controllers/WebhookController.cs (modificado)
+- tests/PaymentTests.cs (nuevo)
+```
+
+4. Ask: **¿Qué quieres commitear?**
+
+| Option | Description |
+|--------|-------------|
+| **1. Governance** | Only MD files |
+| **2. Código** | Only source files |
+| **3. Ambos** | Governance + code |
+| **4. No** | Cancel |
+
+5. If user selects 1, 2, or 3 → ask: **¿Mensaje de commit?**
+   - Option A: User types custom message
+   - Option B: Press Enter for auto-suggested message based on modified files
+
+6. Execute:
+   - `git add [files]`
+   - `git commit -m "[message]"`
+
+7. Show result: `✅ Commit realizado: [hash]`
+
+### Auto-Suggested Messages
+
+| Scenario | Message |
+|----------|---------|
+| Only governance | `docs: update governance files` |
+| Only code | `feat: [based on files modified]` |
+| Both | `feat: [code summary] + docs: governance update` |
+| Custom | User provides the message |
+
+### Example Interaction
+
+```
+USUARIO: ok commit
+
+AI: 📝 Governance (2 archivos):
+    - progress.md (modificado)
+    - agent.md (modificado)
+
+    💻 Código (3 archivos):
+    - src/Services/PaymentService.cs (nuevo)
+    - src/Controllers/WebhookController.cs (modificado)
+    - tests/PaymentTests.cs (nuevo)
+
+    ¿Qué quieres commitear?
+    1. Governance
+    2. Código
+    3. Ambos
+    4. No
+
+USUARIO: 3
+
+AI: ¿Mensaje de commit? (o Enter para sugerencia automática)
+
+USUARIO: [Enter]
+
+AI: [git add .]
+    [git commit -m "feat: payment service + governance update"]
+    ✅ Commit realizado: abc1234
+```
 
 ---
 
