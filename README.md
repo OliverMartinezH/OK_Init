@@ -10,6 +10,21 @@
 
 ## What is OK_Init?
 
+> **OK_Init is a file-based "long-term memory" for free AI tools (ChatGPT, Claude, opencode).**
+> It saves you time and money (tokens).
+>
+> Free AI tiers forget your project context quickly — leading to mistakes, repeated explanations, or starting from scratch. OK_Init creates 5 interconnected text files that summarize your project perfectly. Each time you start a session, you paste one of these files into the AI: it understands everything instantly, uses the minimum data possible, and guides you step by step to finish tasks without going in circles.
+
+### The 3 Pillars of Savings
+
+| Pillar | Analogy | What it does |
+|--------|---------|--------------|
+| 💾 **External memory for AI** | Like giving it a memory card with the exact summary | Instead of explaining your project in every message, just pass `agent.md` or `progress.md` |
+| 🎯 **Zero runaround (fewer messages)** | Solve in 2 messages instead of 10 | `ok sigamos` tells you the exact next step, avoiding daily free-tier message limits |
+| 🔍 **Garbage filter** | Skip what's already done | `ok sync` detects what's built and what's not — no wasted tokens reviewing ready code |
+
+#### How it works
+
 OK_Init generates **5 governance files** that act as a knowledge base for your project. These files are:
 
 - **Obsidian-ready** with `[[wiki-links]]` between them
@@ -28,11 +43,7 @@ OK_Init generates **5 governance files** that act as a knowledge base for your p
 
 ---
 
-## Why OK_Init?
-
-OK_Init is a tool that automatically creates an "intelligence center" for any project. It generates 5 living documents that connect to each other (like Wikipedia) so that the entire team and AI agents always know what is being built, what is missing, and what decisions were made in the past. It's like having a ship's log that writes itself.
-
-### The 5 Commands
+## The 5 Commands
 
 | Command | What it does |
 |---------|--------------|
@@ -41,14 +52,6 @@ OK_Init is a tool that automatically creates an "intelligence center" for any pr
 | `ok sync` | **The auditor:** Compares real work against the plan and flags incomplete items |
 | `ok status` | **The dashboard:** Shows a visual progress bar of where the project stands |
 | `ok commit` | **The safe keeper:** Asks quick questions and archives both code and governance notes |
-
-### 3 Business Benefits
-
-| Benefit | Description |
-|---------|-------------|
-| **No more forgetting** | Leave a project for a month, come back — the tool tells you exactly where you stopped |
-| **AI-ready** | If you use AI to work, these files give it perfect context so it doesn't make mistakes |
-| **Total independence** | Mobile app, web app, internal system — works exactly the same way |
 
 ---
 
@@ -128,17 +131,21 @@ Files include tags for filtering in Obsidian:
 **Global (all projects):**
 
 ```bash
-# Copy to global skills directory
-cp ok-init.md ~/.config/opencode/skills/
+# Copy skill directory to global skills directory
+mkdir -p ~/.config/opencode/skills/ok-init
+cp .opencode/skills/ok-init/SKILL.md ~/.config/opencode/skills/ok-init/
 ```
 
 **Local (single project):**
 
 ```bash
-# Copy to your project's .opencode directory
-mkdir -p .opencode/skills
-cp ok-init.md .opencode/skills/
+# Copy skill directory to your project's .opencode directory
+mkdir -p .opencode/skills/ok-init
+cp .opencode/skills/ok-init/SKILL.md .opencode/skills/ok-init/
 ```
+
+> [!important] Correct structure
+> Skills MUST follow the `.opencode/skills/<name>/SKILL.md` format with proper frontmatter. The `name` field in frontmatter must match the folder name.
 
 ### Usage
 
@@ -186,6 +193,9 @@ No menus. No questions. Just continue.
 ### "Use Context" Mode
 
 If you've been chatting about your project and then invoke the skill:
+
+> [!warning] Privacy notice
+> This mode reads the current conversation to extract project decisions only. Avoid sharing sensitive data (API keys, passwords, personal info) in the chat before using this mode.
 
 ```
 You: [chatting about your project...]
@@ -383,12 +393,15 @@ Press **Enter** to accept the default, or type your own.
 
 ```
 your-project/
+├── .opencode/
+│   └── skills/
+│       └── ok-init/
+│           └── SKILL.md
 ├── Proyecto [YOUR_PROJECT].md
 ├── agent.md
 ├── stack.md
 ├── progress.md
-├── history.md
-└── opencode.json (if not exists)
+└── history.md
 ```
 
 ---
@@ -479,7 +492,18 @@ OK_Init genera **5 archivos de gobernanza** que actúan como base de conocimient
 
 ## ¿Por qué OK_Init?
 
-OK_Init es una herramienta que crea automáticamente una "central de inteligencia" para cualquier proyecto. Genera 5 documentos vivos que se conectan entre sí (como Wikipedia) para que todo el equipo y las Inteligencias Artificiales sepan siempre qué se está construyendo, qué falta por hacer y qué decisiones se tomaron en el pasado. Es como tener un diario de a bordo que se escribe casi solo.
+> **OK_Init es un sistema de archivos inteligentes que le da "memoria a largo plazo" a las Inteligencias Artificiales gratuitas (como ChatGPT o Claude).**
+> Su objetivo es ahorrarte tiempo y dinero (tokens).
+>
+> En las versiones gratis, la IA olvida el contexto rápidamente y empieza a cometer errores o te obliga a reescribir todo desde el principio. OK_Init crea 5 notas de texto interconectadas que resumen perfectamente tu proyecto. Cada vez que inicias una sesión, le pegas una de estas notas a la IA: así ella entiende todo al instante, consume el mínimo de datos posible y te guía paso a paso para terminar tareas sin dar vueltas en círculo.
+
+### Los 3 Pilares del Ahorro
+
+| Pilar | Analogía | Qué hace |
+|-------|----------|----------|
+| 💾 **Memoria externa para la IA** | Como darle una tarjeta de memoria con el resumen exacto | En lugar de gastar espacio explicándole tu proyecto en cada mensaje, solo le pasas `agent.md` o `progress.md` |
+| 🎯 **Cero rodeos (menos mensajes)** | Resuelves en 2 mensajes en lugar de 10 | `ok sigamos` te dice el siguiente paso exacto, evitando que se agote tu límite diario de la versión gratuita |
+| 🔍 **Filtro de basura** | No gastas tokens revisando código que ya estaba listo | `ok sync` detecta qué se programó y qué no, para no analizar archivos irrelevantes |
 
 ### Los 5 Comandos
 
@@ -490,14 +514,6 @@ OK_Init es una herramienta que crea automáticamente una "central de inteligenci
 | `ok sync` | **La auditoría:** Revisa el trabajo real y lo compara con el plan para avisar si algo quedó a medias |
 | `ok status` | **El tablero:** Te muestra una barra de progreso visual de cómo va el proyecto hoy |
 | `ok commit` | **El archivador seguro:** Te hace preguntas rápidas y archiva tanto los avances como las notas de control |
-
-### Los 3 Grandes Beneficios para el Negocio
-
-| Beneficio | Descripción |
-|-----------|-------------|
-| **Adiós al olvido** | Si dejas el proyecto un mes y vuelves, la herramienta te dice exactamente dónde te quedaste |
-| **Luz para la IA** | Si usas Inteligencia Artificial para trabajar, estos archivos le dan el contexto perfecto para que no cometa errores |
-| **Independencia total** | No importa si el proyecto es una aplicación móvil, una web o un sistema interno; funciona exactamente igual |
 
 ---
 
@@ -587,12 +603,16 @@ Commitea archivos de governance y código con preguntas interactivas:
 **Global (todos los proyectos):**
 
 ```bash
-cp ok-init.md ~/.config/opencode/skills/
+mkdir -p ~/.config/opencode/skills/ok-init
+cp .opencode/skills/ok-init/SKILL.md ~/.config/opencode/skills/ok-init/
 ```
 
 **Local (un solo proyecto):**
 
 ```bash
-mkdir -p .opencode/skills
-cp ok-init.md .opencode/skills/
+mkdir -p .opencode/skills/ok-init
+cp .opencode/skills/ok-init/SKILL.md .opencode/skills/ok-init/
 ```
+
+> [!important] Estructura correcta
+> Los skills DEBEN seguir el formato `.opencode/skills/<nombre>/SKILL.md` con frontmatter válido. El campo `name` en el frontmatter debe coincidir con el nombre de la carpeta.

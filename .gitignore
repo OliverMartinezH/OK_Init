@@ -9,3 +9,15 @@ Thumbs.db
 # Temp
 *.tmp
 *.bak
+
+# Secrets (never commit)
+.env*
+*.key
+*.pem
+*.p12
+*.jks
+*.keystore
+credentials.*
+secrets.*
+appsettings.*.json
+docker-compose*.yml

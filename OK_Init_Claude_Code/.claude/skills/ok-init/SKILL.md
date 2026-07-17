@@ -1,6 +1,6 @@
 ---
 name: ok-init
-description: Sistema de gobernanza ágil para mantener la memoria del proyecto. Usar cuando el usuario escriba "ok init", "ok sigamos", "ok sync", "ok status" o "ok commit".
+description: Sistema de gobernanza para proyectos con Obsidian wiki-links y protocolo KISS. Usar cuando el usuario escriba "ok init", "ok sigamos", "ok sync", "ok status" o "ok commit".
 version: 1.0.0
 ---
 
@@ -21,6 +21,9 @@ If the user types "ok init":
 3. Generate 5 governance files with Obsidian wiki-links
 4. If files DO exist → Continue directly (like ok sigamos)
 
+> [!warning] Privacy notice
+> This mode reads the current conversation to extract project decisions only (project name, stack, database, testing, UI, auth). No sensitive data (API keys, passwords, tokens, personal information) should be extracted or stored. If the conversation contains sensitive information, ask the user to confirm before proceeding.
+
 ## Trigger: "ok sigamos"
 
 If the user types "ok sigamos":
@@ -37,14 +40,24 @@ If the user types "ok sync":
 
 1. Verify governance files exist
 2. Read all 5 governance files
-3. Scan actual code structure (glob patterns)
-4. Compare using sync rules:
+3. Scan actual code structure using **explicit glob patterns only** (e.g., `src/**/*.cs`, `tests/**/*.cs`)
+4. **Exclude** these paths from scanning:
+   - `.git/` — Version control internals
+   - `node_modules/`, `bin/`, `obj/`, `dist/` — Build artifacts
+   - `.env*`, `*.key`, `*.pem`, `*.p12`, `*.jks` — Secrets and certificates
+   - `secrets/`, `credentials/` — Sensitive directories
+   - `*.log`, `*.tmp` — Temporary files
+5. Compare using sync rules:
    - Code exists, MD doesn't document → ADD to MD
    - MD documents, code exists → ✅ Synced
    - MD documents, code DOESN'T exist → MARK as "Not built"
    - MD documents, code was DELETED → MARK as "Removed"
-5. Show sync report
-6. Ask: "Do you want to update the MD files?"
+6. Show sync report
+7. Ask: "Do you want to update the MD files?"
+
+> [!warning] Never delete entries
+> When code doesn't exist, MARK as "Not built" instead of deleting from MD.
+> The MD files represent the plan/vision, not just what's built.
 
 ## Trigger: "ok status"
 
@@ -64,13 +77,61 @@ If the user types "ok commit":
 
 1. Verify governance files exist
 2. Run `git status`
-3. Classify modified files:
+3. **Check `.gitignore` exists and review its contents**
+4. Classify modified files:
    - Governance: `progress.md`, `agent.md`, `stack.md`, `history.md`, `Proyecto *.md`
    - Code: All other files
-4. Show summary
-5. Ask: What to commit? (Governance / Code / Both / Cancel)
-6. Ask: Commit message? (custom or auto-suggest)
-7. Execute git add + commit
+5. **Secret detection — scan for sensitive files:**
+
+> [!warning] Security: Secret detection
+> Before staging files, check if any match these patterns:
+> - `.env*`, `.env.local`, `.env.production`
+> - `*.key`, `*.pem`, `*.p12`, `*.jks`, `*.keystore`
+> - `credentials.*`, `secrets.*`, `*secret*`
+> - `appsettings.*.json` (if contains connection strings)
+> - `docker-compose*.yml` (if contains passwords)
+> - Any file matching: `password`, `token`, `api_key`, `secret`
+>
+> **If any match:** Show a WARNING to the user and ask for explicit confirmation before staging.
+
+6. Show summary with sensitive file count
+7. Ask: What to commit? (Governance / Code / Both / Cancel)
+8. Ask: Commit message? (custom or auto-suggest)
+9. Execute git add + commit **with specific files only**
+
+> [!danger] Never use `git add .`
+> Always stage files explicitly by name. Never use `git add .` or `git add -A` to avoid committing secrets, build artifacts, or unintended files.
+
+### Example Interaction
+
+```
+USUARIO: ok commit
+
+AI: 📝 Governance (2 archivos):
+    - progress.md (modificado)
+    - agent.md (modificado)
+
+    💻 Código (3 archivos):
+    - src/Services/PaymentService.cs (nuevo)
+    - src/Controllers/WebhookController.cs (modificado)
+    - tests/PaymentTests.cs (nuevo)
+
+    ¿Qué quieres commitear?
+    1. Governance
+    2. Código
+    3. Ambos
+    4. No
+
+USUARIO: 3
+
+AI: ¿Mensaje de commit? (o Enter para sugerencia automática)
+
+USUARIO: [Enter]
+
+AI: git add src/Services/PaymentService.cs src/Controllers/WebhookController.cs tests/PaymentTests.cs progress.md agent.md history.md
+    git commit -m "feat: payment service + governance update"
+    ✅ Commit realizado: abc1234
+```
 
 ## File Templates
 
