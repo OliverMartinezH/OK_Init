@@ -10,6 +10,49 @@
 
 Cuando el usuario active esta skill, debes:
 
+### Paso 0: Detectar si el proyecto ya existe
+
+Antes de hacer preguntas, verifica si existen los archivos de gobernanza en el directorio actual:
+
+1. Buscar `Proyecto *.md` en el directorio actual
+2. Buscar `agent.md`, `stack.md`, `progress.md`, `history.md`
+
+#### Si los archivos NO existen → Ir al Paso 1
+
+#### Si los archivos SÍ existen → Mostrar este menú:
+
+> [!note] Proyecto detectado
+> Se encontraron archivos de gobernanza existentes en este directorio.
+
+Preguntar al usuario:
+> ¿Qué quieres hacer?
+
+| Opción | Descripción |
+|--------|-------------|
+| **Continuar** | Leer el estado actual y empezar a trabajar |
+| **Regenerar** | Sobreescribir los archivos con nuevos datos |
+| **Nuevo proyecto** | Generar archivos en un subdirectorio nuevo |
+
+**Si elige "Continuar":**
+1. Leer `progress.md` → mostrar fase actual y próximo paso inmediato
+2. Leer `agent.md` → mostrar reglas vigentes
+3. Leer `stack.md` → mostrar decisiones técnicas
+4. Mostrar resumen del estado actual
+5. Preguntar: "¿Qué quieres hacer ahora?"
+6. Ir directo al **Protocolo de Sesión**
+
+**Si elige "Regenerar":**
+1. Preguntar los 9 datos (Paso 1)
+2. Sobreescribir los archivos existentes
+3. Confirmar creación
+
+**Si elige "Nuevo proyecto":**
+1. Preguntar nombre del subdirectorio
+2. Preguntar los 9 datos (Paso 1)
+3. Generar archivos en el subdirectorio
+
+---
+
 ### Paso 1: Recopilar datos (9 preguntas)
 
 Haz las siguientes preguntas **una por una** o **en grupo** (máximo 3 por mensaje para no abrumar):

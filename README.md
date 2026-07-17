@@ -56,7 +56,20 @@ crear gobernanza
 ok init
 ```
 
-La IA te preguntará 9 datos y generará los 5 archivos personalizados.
+La skill detecta automáticamente si ya existen archivos de gobernanza:
+
+```
+OK_Init
+    │
+    ├── ¿Existen archivos?
+    │   ├── NO → Preguntas → Generar archivos → Empezar
+    │   └── SÍ → ¿Qué quieres hacer?
+    │       ├── Continuar → Leer estado → Empezar
+    │       ├── Regenerar → Preguntas → Sobreescribir
+    │       └── Nuevo proyecto → Preguntas → Generar en subdir
+    │
+    └── Protocolo de Sesión
+```
 
 ## Ejemplo de salida
 
