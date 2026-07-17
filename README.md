@@ -1,11 +1,9 @@
 # OK_Init — Project Governance Skill
 
-> **For [opencode](https://opencode.ai)** — Generate a complete governance system for any project with Obsidian wiki-links and a KISS workflow protocol.
+> **Multi-platform governance skill** — Generate a complete governance system for any project with Obsidian wiki-links and a KISS workflow protocol.
 
 [![Obsidian](https://img.shields.io/badge/Obsidian-ready-7C3AED?style=flat-square&logo=obsidian)](https://obsidian.md)
-[![opencode](https://img.shields.io/badge/opencode-000000?style=flat-square)](https://opencode.ai)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
-[![OpenCode](https://img.shields.io/badge/opencode-000000?style=flat-square)](https://opencode.ai)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-D97757?style=flat-square&logo=claudecode&logoColor=white)](https://claude.com)
 [![Antigravity](https://img.shields.io/badge/Antigravity-4285F4?style=flat-square&logo=google&logoColor=white)](https://antigravity.google)
 [![Cursor](https://img.shields.io/badge/Cursor-000000?style=flat-square&logo=cursor&logoColor=white)](https://cursor.com)
@@ -17,10 +15,28 @@
 
 ## What is OK_Init?
 
-> **OK_Init is a file-based "long-term memory" for free AI tools (ChatGPT, Claude, opencode).**
+> **OK_Init is a file-based "long-term memory" for AI agents.**
 > It saves you time and money (tokens).
 >
-> Free AI tiers forget your project context quickly — leading to mistakes, repeated explanations, or starting from scratch. OK_Init creates 5 interconnected text files that summarize your project perfectly. Each time you start a session, you paste one of these files into the AI: it understands everything instantly, uses the minimum data possible, and guides you step by step to finish tasks without going in circles.
+> AI agents forget your project context quickly — leading to mistakes, repeated explanations, or starting from scratch. OK_Init creates 5 interconnected text files that summarize your project perfectly. Each time you start a session, the agent reads these files: it understands everything instantly, uses the minimum data possible, and guides you step by step to finish tasks without going in circles.
+
+### How OK_Init Compares
+
+OK_Init solves the same problem as [LangChain](https://langchain.com) — giving AI agents persistent memory — but using **files instead of code**.
+
+| | LangChain | OK_Init |
+|--|-----------|---------|
+| **Nature** | Python framework | File-based system |
+| **Dependencies** | `pip install langchain` | None |
+| **Memory** | `MemoryMiddleware` | 5 governance MD files |
+| **Session management** | `thread_id` + checkpointer | `progress.md` + `history.md` |
+| **Context engineering** | Middleware pipeline | `ok init` / `ok sigamos` |
+| **Human-in-the-loop** | HITL middleware | "Update only after user approval" |
+| **Target audience** | Developers building products | Users of free AI tools |
+| **Deployment** | Server/cloud | Local, in-agent session |
+
+> [!tip] Key insight
+> LangChain is LangChain **in code** — OK_Init is LangChain **in markdown**. Zero dependencies, works with any agent that can read files.
 
 ### The 3 Pillars of Savings
 
@@ -59,6 +75,79 @@ OK_Init generates **5 governance files** that act as a knowledge base for your p
 | `ok sync` | **The auditor:** Compares real work against the plan and flags incomplete items |
 | `ok status` | **The dashboard:** Shows a visual progress bar of where the project stands |
 | `ok commit` | **The safe keeper:** Asks quick questions and archives both code and governance notes |
+
+---
+
+## Agentes Compatibles
+
+OK_Init es compatible de forma nativa con los principales agentes CLI del ecosistema. Al instalar el skill, el agente solo consumirá tokens cuando invoques los comandos, manteniendo tu contexto limpio.
+
+| Plataforma | Tipo | Instalación |
+|------------|------|-------------|
+| **OpenCode** | Skill (SKILL.md) | `cp ok-init.md ~/.config/opencode/skills/` |
+| **Claude Code** | Skill (SKILL.md) | `mkdir -p .claude/skills/ok-init && cp SKILL.md .claude/skills/ok-init/` |
+| **Antigravity** | Skill (SKILL.md) | `mkdir -p .agent/skills/ok-init && cp SKILL.md .agent/skills/ok-init/` |
+| **Cursor** | Rules (.cursorrules) | `cp .cursorrules .cursorrules` |
+| **Windsurf** | Rules (.windsurfrules) | `cp .windsurfrules .windsurfrules` |
+| **Cline** | Rules (.clinerules/) | `mkdir -p .clinerules && cp .clinerules/governance.md .clinerules/` |
+| **Aider** | Conventions (CONVENTIONS.md) | `cp CONVENTIONS.md .` |
+
+### Instalación por Plataforma
+
+#### 1. OpenCode
+```bash
+cp ok-init.md ~/.config/opencode/skills/
+```
+
+#### 2. Claude Code
+```bash
+mkdir -p .claude/skills/ok-init
+cp SKILL.md .claude/skills/ok-init/
+```
+
+#### 3. Google Antigravity
+```bash
+mkdir -p .agent/skills/ok-init
+cp SKILL.md .agent/skills/ok-init/
+```
+
+#### 4. Cursor / Windsurf
+```bash
+# Cursor
+cp .cursorrules .cursorrules
+
+# Windsurf
+cp .windsurfrules .windsurfrules
+```
+
+#### 5. Cline
+```bash
+mkdir -p .clinerules
+cp .clinerules/governance.md .clinerules/
+```
+
+#### 6. Aider
+```bash
+cp CONVENTIONS.md .
+```
+
+---
+
+## The 6 Questions
+
+When you run `ok init` for the first time, OK_Init asks 6 questions to configure your project. Press **Enter** to accept the default.
+
+| # | Question | Default | Why it matters |
+|---|----------|---------|----------------|
+| 1 | Project name | *(required)* | Names all 5 governance files |
+| 2 | Tech stack | `.NET 10 + C# 14` | Sets runtime in `stack.md` |
+| 3 | Database | `SQL Server 2022` | Configures data access layer |
+| 4 | Testing framework | `xUnit + Moq` | Defines test project structure |
+| 5 | UI framework | `Tailwind CDN` | Sets UI standard in `stack.md` |
+| 6 | Auth strategy | `Cookie Authentication` | Configures security layer |
+
+> [!tip] Customize or default
+> All questions have sensible defaults. Just press Enter for each one and you'll have a working governance structure in 30 seconds.
 
 ---
 
@@ -356,21 +445,6 @@ Commit governance files and code with interactive questions.
 
 ---
 
-## Questions Asked
-
-| # | Question | Default |
-|---|----------|---------|
-| 1 | Project name | *(required)* |
-| 2 | Tech stack | `.NET 10 + C# 14` |
-| 3 | Database | `SQL Server 2022` |
-| 4 | Testing framework | `xUnit + Moq` |
-| 5 | UI framework | `Tailwind CDN` |
-| 6 | Auth strategy | `Cookie Authentication` |
-
-Press **Enter** to accept the default, or type your own.
-
----
-
 ## Session Protocol
 
 ### Start of Session
@@ -464,7 +538,7 @@ your-project/
 
 ## Requirements
 
-- [opencode](https://opencode.ai) installed
+- One of: [opencode](https://opencode.ai), [Claude Code](https://claude.com), [Antigravity](https://antigravity.google), [Cursor](https://cursor.com), [Windsurf](https://windsurf.com), [Cline](https://cline.bot), or [Aider](https://aider.chat)
 - Obsidian (optional, for graph views)
 
 ---
@@ -472,61 +546,6 @@ your-project/
 ## License
 
 MIT
-
----
-
-## Agentes Compatibles
-
-OK_Init es compatible de forma nativa con los principales agentes CLI del ecosistema. Al instalar el skill, el agente solo consumirá tokens cuando invoques los comandos, manteniendo tu contexto limpio.
-
-| Plataforma | Tipo | Instalación |
-|------------|------|-------------|
-| **OpenCode** | Skill (SKILL.md) | `cp ok-init.md ~/.config/opencode/skills/` |
-| **Claude Code** | Skill (SKILL.md) | `mkdir -p .claude/skills/ok-init && cp SKILL.md .claude/skills/ok-init/` |
-| **Antigravity** | Skill (SKILL.md) | `mkdir -p .agent/skills/ok-init && cp SKILL.md .agent/skills/ok-init/` |
-| **Cursor** | Rules (.cursorrules) | `cp .cursorrules .cursorrules` |
-| **Windsurf** | Rules (.windsurfrules) | `cp .windsurfrules .windsurfrules` |
-| **Cline** | Rules (.clinerules/) | `mkdir -p .clinerules && cp .clinerules/governance.md .clinerules/` |
-| **Aider** | Conventions (CONVENTIONS.md) | `cp CONVENTIONS.md .` |
-
-### Instalación por Plataforma
-
-#### 1. OpenCode
-```bash
-cp ok-init.md ~/.config/opencode/skills/
-```
-
-#### 2. Claude Code
-```bash
-mkdir -p .claude/skills/ok-init
-cp SKILL.md .claude/skills/ok-init/
-```
-
-#### 3. Google Antigravity
-```bash
-mkdir -p .agent/skills/ok-init
-cp SKILL.md .agent/skills/ok-init/
-```
-
-#### 4. Cursor / Windsurf
-```bash
-# Cursor
-cp .cursorrules .cursorrules
-
-# Windsurf
-cp .windsurfrules .windsurfrules
-```
-
-#### 5. Cline
-```bash
-mkdir -p .clinerules
-cp .clinerules/governance.md .clinerules/
-```
-
-#### 6. Aider
-```bash
-cp CONVENTIONS.md .
-```
 
 ---
 
@@ -554,10 +573,28 @@ OK_Init genera **5 archivos de gobernanza** que actúan como base de conocimient
 
 ## ¿Por qué OK_Init?
 
-> **OK_Init es un sistema de archivos inteligentes que le da "memoria a largo plazo" a las Inteligencias Artificiales gratuitas (como ChatGPT o Claude).**
+> **OK_Init es un sistema de archivos inteligentes que le da "memoria a largo plazo" a los agentes de IA.**
 > Su objetivo es ahorrarte tiempo y dinero (tokens).
 >
-> En las versiones gratis, la IA olvida el contexto rápidamente y empieza a cometer errores o te obliga a reescribir todo desde el principio. OK_Init crea 5 notas de texto interconectadas que resumen perfectamente tu proyecto. Cada vez que inicias una sesión, le pegas una de estas notas a la IA: así ella entiende todo al instante, consume el mínimo de datos posible y te guía paso a paso para terminar tareas sin dar vueltas en círculo.
+> Los agentes de IA olvidan el contexto rápidamente y empiezan a cometer errores o te obligan a reescribir todo desde el principio. OK_Init crea 5 notas de texto interconectadas que resumen perfectamente tu proyecto. Cada vez que inicias una sesión, el agente lee estos archivos: entiende todo al instante, consume el mínimo de datos posible y te guía paso a paso para terminar tareas sin dar vueltas en círculo.
+
+### Cómo se compara OK_Init
+
+OK_Init resuelve el mismo problema que [LangChain](https://langchain.com) — dar memoria persistente a los agentes de IA — pero usando **archivos en lugar de código**.
+
+| | LangChain | OK_Init |
+|--|-----------|---------|
+| **Naturaleza** | Framework Python | Sistema de archivos |
+| **Dependencias** | `pip install langchain` | Ninguna |
+| **Memoria** | `MemoryMiddleware` | 5 archivos MD de gobernanza |
+| **Gestión de sesiones** | `thread_id` + checkpointer | `progress.md` + `history.md` |
+| **Ingeniería de contexto** | Pipeline de middleware | `ok init` / `ok sigamos` |
+| **Humano en el loop** | Middleware HITL | "Actualizar solo después de aprobación" |
+| **Público objetivo** | Desarrolladores construyendo productos | Usuarios de herramientas de IA gratuitas |
+| **Despliegue** | Servidor/nube | Local, en la sesión del agente |
+
+> [!tip] Idea clave
+> LangChain es LangChain **en código** — OK_Init es LangChain **en markdown**. Cero dependencias, funciona con cualquier agente que pueda leer archivos.
 
 ### Los 3 Pilares del Ahorro
 
@@ -576,6 +613,24 @@ OK_Init genera **5 archivos de gobernanza** que actúan como base de conocimient
 | `ok sync` | **La auditoría:** Revisa el trabajo real y lo compara con el plan para avisar si algo quedó a medias |
 | `ok status` | **El tablero:** Te muestra una barra de progreso visual de cómo va el proyecto hoy |
 | `ok commit` | **El archivador seguro:** Te hace preguntas rápidas y archiva tanto los avances como las notas de control |
+
+---
+
+## Las 6 Preguntas
+
+Cuando ejecutas `ok init` por primera vez, OK_Init hace 6 preguntas para configurar tu proyecto. Presiona **Enter** para aceptar el valor por defecto.
+
+| # | Pregunta | Por defecto | Por qué importa |
+|---|----------|-------------|------------------|
+| 1 | Nombre del proyecto | *(requerido)* | Nombra los 5 archivos de gobernanza |
+| 2 | Stack tecnológico | `.NET 10 + C# 14` | Define el runtime en `stack.md` |
+| 3 | Base de datos | `SQL Server 2022` | Configura la capa de acceso a datos |
+| 4 | Framework de testing | `xUnit + Moq` | Define la estructura del proyecto de tests |
+| 5 | Framework de UI | `Tailwind CDN` | Establece el estándar UI en `stack.md` |
+| 6 | Estrategia de auth | `Cookie Authentication` | Configura la capa de seguridad |
+
+> [!tip] Personalizar o usar defectos
+> Todas las preguntas tienen valores sensatos por defecto. Solo presiona Enter para cada una y tendrás una estructura de gobernanza funcionando en 30 segundos.
 
 ---
 
@@ -661,6 +716,9 @@ Commitea archivos de governance y código con preguntas interactivas:
 ---
 
 ## Instalación
+
+> [!tip] Multi-plataforma
+> OK_Init funciona con 7 agentes de IA. Ver la sección **Agentes Compatibles** en inglés para instrucciones detalladas por plataforma.
 
 **Global (todos los proyectos):**
 
