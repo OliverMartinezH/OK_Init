@@ -1,7 +1,7 @@
 # OK_Init — Skill de Inicialización de Proyecto con Gobernanza
 
 **Nombre:** ok-init
-**Trigger:** "iniciar proyecto", "OK_Init", "crear gobernanza", "ok init"
+**Trigger:** "OK_Init", "ok init", "iniciar proyecto", "nuevo proyecto", "empezar proyecto", "setup proyecto"
 **Descripción:** Genera el sistema de gobernanza de 5 archivos MD para un proyecto .NET con Arquitectura Hexagonal, incluyendo enlaces Obsidian bidireccionales y protocolo de sesión KISS.
 
 ---

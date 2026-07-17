@@ -50,10 +50,12 @@ Copia `ok-init.md` a `~/.config/opencode/skills/`:
 En opencode, escribe cualquiera de estos comandos:
 
 ```
-iniciar proyecto
 OK_Init
-crear gobernanza
 ok init
+iniciar proyecto
+nuevo proyecto
+empezar proyecto
+setup proyecto
 ```
 
 La skill detecta automáticamente si ya existen archivos de gobernanza:
