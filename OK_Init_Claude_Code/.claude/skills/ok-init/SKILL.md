@@ -1,0 +1,400 @@
+---
+name: ok-init
+description: Sistema de gobernanza ágil para mantener la memoria del proyecto. Usar cuando el usuario escriba "ok init", "ok sigamos", "ok sync", "ok status" o "ok commit".
+version: 1.0.0
+---
+
+# OK_Init — Project Governance Skill
+
+## Trigger: "ok init"
+
+If the user types "ok init":
+
+1. Verify governance files exist in current directory
+2. If they do NOT exist → Ask:
+   - What's the project name? (required)
+   - What tech stack? (default: .NET 10 + C# 14)
+   - What database? (default: SQL Server 2022)
+   - What testing framework? (default: xUnit + Moq)
+   - What UI framework? (default: Tailwind CDN)
+   - What auth strategy? (default: Cookie Authentication)
+3. Generate 5 governance files with Obsidian wiki-links
+4. If files DO exist → Continue directly (like ok sigamos)
+
+## Trigger: "ok sigamos"
+
+If the user types "ok sigamos":
+
+1. Verify governance files exist
+2. Read `progress.md` → current phase and next step
+3. Read `agent.md` → rules and decisions
+4. Read `stack.md` → technical decisions
+5. Show summary and ask: "What do you want to do now?"
+
+## Trigger: "ok sync"
+
+If the user types "ok sync":
+
+1. Verify governance files exist
+2. Read all 5 governance files
+3. Scan actual code structure (glob patterns)
+4. Compare using sync rules:
+   - Code exists, MD doesn't document → ADD to MD
+   - MD documents, code exists → ✅ Synced
+   - MD documents, code DOESN'T exist → MARK as "Not built"
+   - MD documents, code was DELETED → MARK as "Removed"
+5. Show sync report
+6. Ask: "Do you want to update the MD files?"
+
+## Trigger: "ok status"
+
+If the user types "ok status":
+
+1. Verify governance files exist
+2. Read all 5 governance files
+3. Show dashboard:
+   - Progress bar (checked/unchecked tasks)
+   - Current phase
+   - Last session (from history.md)
+   - Next step (first unchecked task)
+
+## Trigger: "ok commit"
+
+If the user types "ok commit":
+
+1. Verify governance files exist
+2. Run `git status`
+3. Classify modified files:
+   - Governance: `progress.md`, `agent.md`, `stack.md`, `history.md`, `Proyecto *.md`
+   - Code: All other files
+4. Show summary
+5. Ask: What to commit? (Governance / Code / Both / Cancel)
+6. Ask: Commit message? (custom or auto-suggest)
+7. Execute git add + commit
+
+## File Templates
+
+### Proyecto [NAME].md
+
+```markdown
+# Mapa del Proyecto: {{PROJECT_NAME}}
+
+> **Technical context:** Ver [[stack]]
+> **Development rules:** Ver [[agent]]
+> **Current status:** Ver [[progress]]
+
+---
+
+## Development Philosophy
+
+* **Simplicity First (KISS):** Avoid over-engineering. Keep things simple and maintainable.
+* **Error Handling:** Use a Result Pattern or similar (no exceptions for business validations).
+* **Testing:** Every new feature MUST have unit tests before completion.
+
+---
+
+## Architecture
+
+### Core
+
+* **Business Logic:** `{{PROJECT_NAME}}.Application` — Use cases and services
+* **Data Access:** `{{PROJECT_NAME}}.Infrastructure` — Database context and repositories
+* **Presentation:** `{{PROJECT_NAME}}.Web` — API controllers or UI views
+
+### Quality
+
+* **Tests:** `tests/{{PROJECT_NAME}}.Tests` — Unit tests with **{{TEST_FRAMEWORK}}**
+
+---
+
+## Roadmap
+
+1. Core infrastructure (Result pattern, base entities)
+2. Data access layer
+3. Business logic
+4. Presentation layer
+5. Testing
+```
+
+### agent.md
+
+```markdown
+# Agent Instructions: {{PROJECT_NAME}}
+
+> **Project map:** Ver [[Proyecto {{PROJECT_NAME}}]]
+> **Tech stack:** Ver [[stack]]
+> **Current status:** Ver [[progress]]
+> **History:** Ver [[history]]
+
+---
+
+## 1. Development Philosophy
+
+* **Simplicity First (KISS):** Avoid over-engineering. Keep things simple and maintainable.
+* **Error Handling:** Use a Result Pattern or similar (no exceptions for business validations).
+* **Testing:** Every new feature MUST have unit tests before completion.
+
+---
+
+## 2. Testing Guidelines
+
+* Framework: **{{TEST_FRAMEWORK}}**
+* Method naming: `[Method]_[Scenario]_[ExpectedResult]`
+* All new code MUST have unit tests before completion.
+
+---
+
+## 3. Roadmap for Code Generation
+
+### Step 1: Core Infrastructure
+
+1. Create the Result pattern class/container
+2. Create base entities
+3. Set up project structure
+
+### Step 2: Data Access
+
+1. Create database context
+2. Configure entity mappings
+3. Implement repositories
+
+### Step 3: Business Logic
+
+1. Create use cases / services
+2. Implement business rules with Result pattern
+3. Add validation logic
+
+### Step 4: Presentation
+
+1. Create controllers/views
+2. Wire up dependency injection
+3. Add routing
+
+### Step 5: Testing
+
+1. Write unit tests for each layer
+2. Ensure all tests pass
+
+---
+
+## 4. Decisions and Agreed Rules
+
+> [!note] Session history
+> This space fills automatically during development.
+> Agreed decisions are recorded here for future reference.
+
+* Pending first development session.
+```
+
+### stack.md
+
+```markdown
+# Tech Stack: {{PROJECT_NAME}}
+
+> **Project map:** Ver [[Proyecto {{PROJECT_NAME}}]]
+> **Rules:** Ver [[agent]]
+> **Status:** Ver [[progress]]
+
+---
+
+## 1. Technologies
+
+* **Runtime:** {{STACK}}
+* **Approach:** Clean architecture under KISS principle
+* **Data Access:** Code-First with migrations
+* **Authentication:** {{AUTH_STRATEGY}}
+* **Testing:** {{TEST_FRAMEWORK}}
+* **UI:** {{UI_FRAMEWORK}}
+
+---
+
+## 2. Data Model
+
+> [!important] Data organization
+> Organize your data in separate modules or schemas for better isolation.
+
+### Example Structure
+
+| Entity | Key Fields | Relationships |
+|--------|------------|---------------|
+| Users | Id, Name, Email | → Roles |
+| Roles | Id, Name | → Permissions |
+
+> [!tip] Data design
+> Use normalization (3NF) where appropriate. Keep entities focused and minimal.
+
+---
+
+## 3. Project Structure
+
+```text
+{{PROJECT_NAME}}/
+├── src/
+│   ├── {{PROJECT_NAME}}.Core/
+│   │   └── Entities/
+│   ├── {{PROJECT_NAME}}.Infrastructure/
+│   │   ├── DbContext.cs
+│   │   └── Repositories/
+│   ├── {{PROJECT_NAME}}.Application/
+│   │   └── Services/
+│   └── {{PROJECT_NAME}}.Web/
+│       ├── Controllers/
+│       └── Views/
+└── tests/
+    └── {{PROJECT_NAME}}.Tests/
+```
+
+---
+
+## 4. UI Standard
+
+> [!note] Visual standard
+> All web interfaces should have a modern, minimalist design.
+
+* **Engine (KISS):** {{UI_FRAMEWORK}}
+* **Color Palette:**
+  * Primary: Indigo (`bg-indigo-600`)
+  * Success: Emerald (`bg-emerald-100 text-emerald-800`)
+  * Warning: Amber (`bg-amber-100 text-amber-800`)
+  * Error: Rose (`bg-rose-100 text-rose-800`)
+
+---
+
+## 5. Roles and Permissions
+
+| Role | Access |
+|------|--------|
+| `Admin` | Full access |
+| `User` | Limited access |
+
+> Customize this section based on your project's needs.
+```
+
+### progress.md
+
+```markdown
+# {{PROJECT_NAME}} — Progress Log
+
+> **History:** Ver [[history]]
+> **Stack:** Ver [[stack]]
+> **Rules:** Ver [[agent]]
+> **Project map:** Ver [[Proyecto {{PROJECT_NAME}}]]
+
+---
+
+## 1. Project Status
+
+* **Project:** {{PROJECT_NAME}} ({{STACK}})
+* **Current Phase:** Pending start
+* **Last milestone:** None
+
+---
+
+## 2. Implementation Checklist
+
+### Phase 0: Testing Infrastructure
+
+- [ ] **0.1.** Create test project with {{TEST_FRAMEWORK}}
+- [ ] **0.2.** Unit tests for Result pattern
+- [ ] **0.3.** Integration tests for data access
+
+### Phase 1: Core
+
+- [ ] **1.1.** Create Result pattern class
+- [ ] **1.2.** Create base entities
+- [ ] **1.3.** Set up project structure
+
+### Phase 2: Data Access
+
+- [ ] **2.1.** Create database context
+- [ ] **2.2.** Configure entity mappings
+- [ ] **2.3.** Implement repositories
+
+### Phase 3: Business Logic
+
+- [ ] **3.1.** Create use cases / services
+- [ ] **3.2.** Implement business rules
+- [ ] **3.3.** Add validation
+
+### Phase 4: Presentation
+
+- [ ] **4.1.** Create controllers/views
+- [ ] **4.2.** Wire up dependency injection
+- [ ] **4.3.** Add routing
+
+### Phase 5: Testing & Deployment
+
+- [ ] **5.1.** Write unit tests for all layers
+- [ ] **5.2.** Ensure all tests pass
+- [ ] **5.3.** Deploy
+
+---
+
+## 3. Recent Iterations
+
+* Pending first iteration.
+
+---
+
+## 4. Next Immediate Step
+
+> [!tip] First step
+> Start with **Phase 0: Testing Infrastructure**.
+> Create the test project and validate the Result pattern.
+```
+
+### history.md
+
+```markdown
+# {{PROJECT_NAME}} — Completed Phases History
+
+> **Current status:** Ver [[progress]]
+> **Tech stack:** Ver [[stack]]
+> **Rules:** Ver [[agent]]
+
+---
+
+> [!note] Accumulative file
+> This file records all completed phases with date and time.
+> It is automatically updated when a phase is completed in [[progress]].
+
+---
+
+*No phases completed yet.*
+```
+
+## Session Protocol
+
+### At the START of each session:
+
+1. Read `progress.md` → current phase and next step
+2. Read `agent.md` → rules and decisions
+3. Read `stack.md` → technical decisions
+
+### During the session:
+
+- Generate code **only for the current step** from `progress.md`
+- If ambiguous, **ask the user** before writing code
+- Minor dependencies: create stub with `// TODO: Implement in corresponding step`
+
+### At the END of each session (after user approval):
+
+1. **`progress.md`** → Mark task as completed + set next step
+2. **`history.md`** → Move completed phase with date (DD/MM/YYYY HH:MM America/Santiago)
+3. **`stack.md`** → Document new technical decisions (show only lines to add)
+4. **`agent.md`** → Document new rules/decisions (show only lines to add)
+
+> [!warning] Golden rule
+> Files are **only updated AFTER user approval**.
+> Never update files without explicit approval.
+
+## Date Format
+
+Use format: `DD/MM/YYYY HH:MM` with timezone `America/Santiago`.
+
+## Obsidian Features
+
+- **Wiki-links:** `[[file]]` between the 5 MD files
+- **Callouts:** `> [!note]`, `> [!tip]`, `> [!warning]`, `> [!important]`
+- **Tags:** `#fase/0`, `#fase/1`
+- **Graph view:** Generated automatically by wiki-links
